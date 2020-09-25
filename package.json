@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node index.js",
+    "start": "ts-node index.ts",
     "lint": "eslint **/*.ts",
     "prettier": "prettier --write \"**/*.ts\"",
     "precommit": "tsc --noEmit && lint-staged",
