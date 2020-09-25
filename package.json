@@ -5,6 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node index.js",
+    "lint": "eslint **/*.ts",
+    "prettier": "prettier --write \"**/*.ts\"",
+    "precommit": "tsc --noEmit && lint-staged",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +27,8 @@
     "@typescript-eslint/parser": "^4.2.0",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
@@ -33,5 +38,15 @@
     "printWidth": 120,
     "tabWidth": 2,
     "trailingComma": "es5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "npm run prettier"
+    ]
   }
 }
