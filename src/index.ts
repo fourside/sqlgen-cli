@@ -16,18 +16,26 @@ export type Fixture = {
   [tableName: string]: Array<Record<string, SqlValue>>;
 };
 
-(async () => {
-  const { fixture } = await import(inputFile);
-  validateFixture(fixture);
-  const insertSqlString = insertSql(fixture as Fixture);
-  console.log(insertSqlString);
-  outputSql(insertSqlString, outputInsertSqlFile);
+async function main(): Promise<void> {
+  try {
+    const { fixture } = await import(inputFile);
+    validateFixture(fixture);
+    const insertSqlString = insertSql(fixture as Fixture);
+    console.log(insertSqlString);
+    outputSql(insertSqlString, outputInsertSqlFile);
 
-  const deleteSqlString = deleteSql(fixture as Fixture);
-  console.log(deleteSqlString);
-  outputSql(deleteSqlString, outputDeleteSqlFile);
-})();
+    const deleteSqlString = deleteSql(fixture as Fixture);
+    console.log(deleteSqlString);
+    outputSql(deleteSqlString, outputDeleteSqlFile);
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 function outputSql(sql: string, filePath: string): void {
   fs.writeFileSync(filePath, sql, "utf-8");
 }
+
+(async () => {
+  await main();
+})();
