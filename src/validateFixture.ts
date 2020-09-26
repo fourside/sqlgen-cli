@@ -28,7 +28,7 @@ export function validateFixture(fixture: Fixture): true {
       recordColumns.sort().forEach((column, columnIndex) => {
         if (columns[columnIndex] !== column) {
           throw new Error(
-            `a column of record at ${index} in ${tableName} is different: expected is ${column}, actual is ${columns[columnIndex]}`
+            `a column of record at ${index} in ${tableName} is different: expected is ${columns[columnIndex]}, actual is ${column}`
           );
         }
       });
