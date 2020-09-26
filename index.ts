@@ -4,7 +4,7 @@ const INPUT_FILE = "./input.tables.ts";
 const OUTPUT_INSERT_SQL_FILE = "./insert.sql";
 const OUTPUT_DELETE_SQL_FILE = "./delete.sql";
 
-type SqlValue = string | number | null;
+type SqlValue = string | number | boolean | null;
 type Fixture = {
   [tableName: string]: Array<Record<string, SqlValue>>;
 };
@@ -58,7 +58,7 @@ function deleteSql(fixture: Fixture): string {
   return sqls.reverse().join("\n");
 }
 
-function convert(value: SqlValue): string | number {
+function convert(value: SqlValue): string | number | boolean {
   if (typeof value === "string") {
     return `"${value}"`;
   } else if (value === null) {
