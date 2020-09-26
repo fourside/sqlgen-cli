@@ -2,9 +2,9 @@
   "name": "sqlgen-cli",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node index.ts",
+    "start": "ts-node src/index.ts",
     "lint": "eslint **/*.ts",
     "prettier": "prettier --write \"**/*.ts\"",
     "precommit": "tsc --noEmit && lint-staged",

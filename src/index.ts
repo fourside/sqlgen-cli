@@ -1,8 +1,8 @@
 import * as fs from "fs";
 
-const INPUT_FILE = "./input.tables.ts";
-const OUTPUT_INSERT_SQL_FILE = "./insert.sql";
-const OUTPUT_DELETE_SQL_FILE = "./delete.sql";
+const INPUT_FILE = "../input.tables.ts";
+const OUTPUT_INSERT_SQL_FILE = "../insert.sql";
+const OUTPUT_DELETE_SQL_FILE = "../delete.sql";
 
 type SqlValue = string | number | boolean | null;
 type Fixture = {
