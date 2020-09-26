@@ -1,11 +1,15 @@
 import * as fs from "fs";
+import * as path from "path";
 import { Dayjs } from "dayjs";
 import { validateFixture } from "./validateFixture";
 import { insertSql, deleteSql } from "./generateSql";
+import { argv } from "./cliparser";
 
-const INPUT_FILE = "../input.tables.ts";
-const OUTPUT_INSERT_SQL_FILE = "../insert.sql";
-const OUTPUT_DELETE_SQL_FILE = "../delete.sql";
+const PROJECT_ROOT = "..";
+
+const inputFile = path.resolve(__dirname, PROJECT_ROOT, argv["input-file"]);
+const outputInsertSqlFile = path.resolve(__dirname, PROJECT_ROOT, argv["output-insert-sql"]);
+const outputDeleteSqlFile = path.resolve(__dirname, PROJECT_ROOT, argv["output-delete-sql"]);
 
 export type SqlValue = string | number | boolean | null | Dayjs;
 export type Fixture = {
@@ -13,15 +17,15 @@ export type Fixture = {
 };
 
 (async () => {
-  const { fixture } = await import(INPUT_FILE);
+  const { fixture } = await import(inputFile);
   validateFixture(fixture);
   const insertSqlString = insertSql(fixture as Fixture);
   console.log(insertSqlString);
-  outputSql(insertSqlString, OUTPUT_INSERT_SQL_FILE);
+  outputSql(insertSqlString, outputInsertSqlFile);
 
   const deleteSqlString = deleteSql(fixture as Fixture);
   console.log(deleteSqlString);
-  outputSql(deleteSqlString, OUTPUT_DELETE_SQL_FILE);
+  outputSql(deleteSqlString, outputDeleteSqlFile);
 })();
 
 function outputSql(sql: string, filePath: string): void {
