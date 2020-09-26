@@ -8,7 +8,7 @@
     "lint": "eslint **/*.ts",
     "prettier": "prettier --write \"**/*.ts\"",
     "precommit": "tsc --noEmit && lint-staged",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,11 @@
   },
   "homepage": "https://github.com/fourside/sqlgen-cli#readme",
   "devDependencies": {
+    "@ava/typescript": "^1.1.1",
     "@types/node": "^14.11.2",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
+    "ava": "^3.12.1",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^4.3.0",
