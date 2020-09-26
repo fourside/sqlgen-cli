@@ -1,7 +1,8 @@
 const INPUT_FILE = "./input.tables.ts";
 
+type SqlValue = string | number | null;
 type Fixture = {
-  [key: string]: Array<Record<string, string | number | null>>;
+  [tableName: string]: Array<Record<string, SqlValue>>;
 };
 
 (async () => {
@@ -18,12 +19,7 @@ function insertSql(fixture: Fixture): string {
     const columns = Object.keys(recordList[0]);
     const valuesList = recordList.map((record) => {
       const values = Object.values(record).map((v) => {
-        if (typeof v === "string") {
-          return `"${v}"`;
-        } else if (v === null) {
-          return "null";
-        }
-        return v;
+        return convert(v);
       });
       return `( ${values.join(", ")} )`;
     });
@@ -51,4 +47,13 @@ function deleteSql(fixture: Fixture): string {
     return `DELETE FROM ${tableName} WHERE id in (${ids});`;
   });
   return sqls.reverse().join("\n");
+}
+
+function convert(value: SqlValue): string | number {
+  if (typeof value === "string") {
+    return `"${value}"`;
+  } else if (value === null) {
+    return "null";
+  }
+  return value;
 }
