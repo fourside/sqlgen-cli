@@ -50,5 +50,8 @@
     "*.ts": [
       "npm run prettier"
     ]
+  },
+  "dependencies": {
+    "dayjs": "^1.8.36"
   }
 }

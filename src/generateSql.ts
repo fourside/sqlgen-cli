@@ -1,3 +1,5 @@
+import { isDayjs } from "dayjs";
+import { DATE_FORMAT } from "./day";
 import { Fixture, SqlValue } from "./index";
 
 export function insertSql(fixture: Fixture): string {
@@ -42,6 +44,8 @@ function convert(value: SqlValue): string | number | boolean {
     return `"${value}"`;
   } else if (value === null) {
     return "null";
+  } else if (isDayjs(value)) {
+    return value.format(DATE_FORMAT);
   }
   return value;
 }
