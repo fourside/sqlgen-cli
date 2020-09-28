@@ -18,7 +18,7 @@ export function insertSql(fixture: Fixture): string {
 ;`;
     return sql;
   });
-  return sqls.join("\n");
+  return withTransaction(sqls).join("\n");
 }
 
 export function deleteSql(fixture: Fixture): string {
@@ -36,7 +36,7 @@ export function deleteSql(fixture: Fixture): string {
       .join(", ");
     return `DELETE FROM ${tableName} WHERE id in (${ids});`;
   });
-  return sqls.reverse().join("\n");
+  return withTransaction(sqls.reverse()).join("\n");
 }
 
 function convert(value: SqlValue): string | number | boolean {
@@ -48,4 +48,8 @@ function convert(value: SqlValue): string | number | boolean {
     return value.format(DATE_FORMAT);
   }
   return value;
+}
+
+function withTransaction(sqls: string[]): string[] {
+  return ["BEGIN TRANSACTION;", ...sqls, "COMMIT;"];
 }
